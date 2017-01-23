@@ -1,0 +1,104 @@
+<ion-modal-view ng-controller="ProfileCtrl" hide-nav-bar="true">
+
+
+<ion-header-bar class="pinro-header">
+  
+      <button class="button button-clear text-button" ng-click="closeProfileModal()">Close</button>
+  
+    <h1 class="title">Profile</h1>
+  </ion-header-bar>
+
+  <div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+<ion-content  class="profile">
+
+
+
+ <div class="cover-photo-holder">
+
+     <img ng-src="{{user.gravatar}}">
+     <h3 class="regular-font">{{full_name || user.username}}</h3>
+   
+    
+</div>
+
+
+
+<div class="row tab">
+    <div class="col" ng-click="show = 'orders'"  ng-class="{'color-warm-grey': show=='orders'}">
+        <h5 ng-class="{'color-light-grey': show=='offers'}">{{user.orders_count || 0}}</h5>
+        orders
+    </div>
+    <div class="col" ng-click="show = 'offers'" ng-class="{'color-warm-grey': show=='offers'}">
+        <h5 ng-class="{'color-light-grey': show=='orders'}">{{offerPosts.length || 0}}</h5>
+        offers
+    </div>
+</div>
+
+<div class="order-list" ng-if="show == 'orders'">
+			
+                <!--<ion-list ng-if="orderList.length">
+
+<ion-item class="item-divider">
+Order history
+</ion-item>
+
+  <ion-item ng-repeat="order in orderList track by $index" class="item-icon-right">
+            
+             <h5>Order ref #{{order.number}}</h5>
+                    <div ng-repeat="item in order.line_items">
+                        <p>{{item.name}}</p>
+                    </div>
+                            <small class="">Status: {{order.status}}</small>
+                            <h3 class="price">{{order.total}} {{order.currency}}</h3>
+  </ion-item>
+            </ion-list>-->
+                <div ng-if="orderList.length" class="padding">
+
+<div class="card" ng-repeat="order in orderList track by $index" >
+  <div class="item item-divider">
+      <div class="row">
+          <div class="col col-67">
+              <div>ORDER #{{order.number}}</div>
+          </div>
+          <div class="col text-right status-holder">
+              <span class="status-badge">{{order.status}}</span>
+          </div>
+      </div>
+
+  </div>
+  <div class="item item-text-wrap">
+          <div class="line-item" ng-repeat="item in order.line_items">
+       
+              <h3>{{item.name}}</h3>
+              <div ng-repeat="variation in item.meta" style="line-height: 0px; text-transform: uppercase;">
+                            <small>{{variation.label}}: {{variation.value}}</small>
+                        </div>
+               <h5 class="price">{{item.price}} {{order.currency}}</h5>
+          </div>
+          
+    
+  </div>
+  <div class="item item-divider card-footer" ng-class="{'pending': !order.transaction_id.length}">
+    <div class="row">
+        <div class="col">
+            <button class="button button-small button-clear button-light button-full button-text" ng-if="!order.transaction_id.length" ng-click="closeProfileModal()" ui-sref="app.payment_step2({orderId: order.id, amount: order.total, currency: order.currency})">Pay Now</button>
+        </div>
+        <div class="col price-holder">
+            Total {{order.total}} {{order.currency}}
+        </div>
+    </div>
+  </div>
+</div>
+            </div>
+
+		</div>
+
+<div class="offer-list" ng-if="show == 'offers'">
+    
+    <!--<img ng-src="{{offer.attachments[0].url}}" ng-repeat="offer in offerPosts" width="100%">-->
+    <img ng-src="{{offer.thumbnail}}" ng-repeat="offer in offerPosts" width="100%">
+</div>
+
+</ion-content>
+</ion-modal-view>
