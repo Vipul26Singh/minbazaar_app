@@ -1,0 +1,44 @@
+<ion-modal-view ng-controller="SearchCtrl">
+
+<ion-header-bar class="pinro-header header-shadow">
+  
+      <button class="button button-clear text-button" ng-click="closeSearchModal()">Close</button>
+  
+    <h1 class="title">Search</h1>
+  </ion-header-bar>
+
+        <div class="bar bar-subheader item-input-inset subheader-with-input">
+  <label class="item-input-wrapper">
+    
+    <input type="search" placeholder="Type here" ng-model="search">
+  </label>
+  <button class="button button-icon">
+    <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
+    <img src="img/icons/search_icon.svg">
+  </button>
+</div>
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+	<ion-content class="has-subheader">
+
+<div class="product-list">
+			<ul>
+				<!--<li class="list-item" ng-repeat="item in productList | orderBy:filterBy | filter:search" ng-click="goToProduct(123)">
+					<div class="product-image" style="background: url('{{item.imgUrl}}'); background-size:contain; background-repeat: no-repeat; height: 200px;">
+					</div>
+					<h5>{{item.name}}</h5>
+					<small class="category-name">{{item.category}}</small>
+					<small class="price">&#8377;{{item.price}}</small>
+				</li>-->
+        <li class="list-item" ng-repeat="item in productList | orderBy:filterBy | filter:search" ng-click="goToProduct(item.id)">
+					<div class="product-image" style="background: url('{{item.images[0].src}}'); background-size:cover; background-repeat: no-repeat; height: 200px;">
+					</div>
+					<h5>{{item.name}}</h5>
+					<small class="category-name">{{item.categories[0].name}}</small>
+					<small class="price">&#8377;{{item.price}}</small>
+				</li>
+			</ul>
+		</div>
+</ion-content>
+</ion-modal-view>

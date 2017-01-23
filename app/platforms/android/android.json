@@ -1,0 +1,292 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"CardIO\"><param name=\"android-package\" value=\"com.keepe.plugins.cardio.CardIO\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Stripe\"><param name=\"android-package\" value=\"com.telerik.stripe.StripePlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FCMPlugin\"><param name=\"android-package\" value=\"com.gae.scaffolder.plugin.FCMPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DeviceFeedback\"><param name=\"android-package\" value=\"cz.Velda.cordova.plugin.devicefeedback.DeviceFeedback\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:configChanges=\"orientation|keyboardHidden\" android:name=\"com.keepe.plugins.cardio.CardIOMain\" android:screenOrientation=\"portrait\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"stateAlwaysHidden\"><intent-filter><action android:name=\"com.keepe.plugins.cardio.SCAN\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:hardwareAccelerated=\"true\" android:name=\"io.card.payment.CardIOActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"io.card.payment.DataEntryActivity\" android:screenOrientation=\"portrait\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:exported=\"true\" android:launchMode=\"singleTop\" android:name=\"com.gae.scaffolder.plugin.FCMPluginActivity\"><intent-filter><action android:name=\"FCM_PLUGIN_ACTIVITY\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"com.gae.scaffolder.plugin.MyFirebaseMessagingService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"com.gae.scaffolder.plugin.MyFirebaseInstanceIDService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.flash\" android:required=\"false\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "res/values/strings.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<string name=\"stripe_api_key\">sk_test_Warwt7pJD7Rs8EPWB5PpJWAO</string>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.keepe.cardio": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "com.telerik.stripe": {
+            "API_KEY": "sk_test_Warwt7pJD7Rs8EPWB5PpJWAO",
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-fcm": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-velda-devicefeedback": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "id": "com.keepe.cardio.CardIO",
+            "file": "plugins/com.keepe.cardio/www/cdv-plugin-card-io.js",
+            "pluginId": "com.keepe.cardio",
+            "clobbers": [
+                "CardIO"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.stripe",
+            "file": "plugins/com.telerik.stripe/www/stripe.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.charges",
+            "file": "plugins/com.telerik.stripe/www/charges.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.charges"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.customers",
+            "file": "plugins/com.telerik.stripe/www/customers.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.customers"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.recipients",
+            "file": "plugins/com.telerik.stripe/www/recipients.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.recipients"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.subscriptions",
+            "file": "plugins/com.telerik.stripe/www/subscriptions.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.subscriptions"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.transfers",
+            "file": "plugins/com.telerik.stripe/www/transfers.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.transfers"
+            ]
+        },
+        {
+            "id": "com.telerik.stripe.coupons",
+            "file": "plugins/com.telerik.stripe/www/coupons.js",
+            "pluginId": "com.telerik.stripe",
+            "clobbers": [
+                "stripe.coupons"
+            ]
+        },
+        {
+            "id": "cordova-plugin-device.device",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "id": "cordova-plugin-fcm.FCMPlugin",
+            "file": "plugins/cordova-plugin-fcm/www/FCMPlugin.js",
+            "pluginId": "cordova-plugin-fcm",
+            "clobbers": [
+                "FCMPlugin"
+            ]
+        },
+        {
+            "id": "cordova-plugin-inappbrowser.inappbrowser",
+            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+            "pluginId": "cordova-plugin-inappbrowser",
+            "clobbers": [
+                "cordova.InAppBrowser.open",
+                "window.open"
+            ]
+        },
+        {
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "id": "cordova-plugin-statusbar.statusbar",
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "pluginId": "cordova-plugin-statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
+        },
+        {
+            "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+            "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+            "pluginId": "cordova-plugin-velda-devicefeedback",
+            "clobbers": [
+                "window.plugins.deviceFeedback"
+            ]
+        },
+        {
+            "id": "ionic-plugin-keyboard.keyboard",
+            "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
+            "pluginId": "ionic-plugin-keyboard",
+            "clobbers": [
+                "cordova.plugins.Keyboard"
+            ],
+            "runs": true
+        }
+    ],
+    "plugin_metadata": {
+        "com.keepe.cardio": "1.0.9",
+        "com.telerik.stripe": "1.0.8",
+        "cordova-plugin-console": "1.0.4",
+        "cordova-plugin-device": "1.1.3",
+        "cordova-plugin-fcm": "2.1.1",
+        "cordova-plugin-inappbrowser": "1.6.1",
+        "cordova-plugin-splashscreen": "4.0.0",
+        "cordova-plugin-statusbar": "2.2.0",
+        "cordova-plugin-velda-devicefeedback": "0.0.2",
+        "cordova-plugin-whitelist": "1.3.0",
+        "ionic-plugin-keyboard": "2.2.1"
+    }
+}

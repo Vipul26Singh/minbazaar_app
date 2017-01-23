@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "940758081863",
+    "firebase_url": "https://minbazaarpush.firebaseio.com",
+    "project_id": "minbazaarpush",
+    "storage_bucket": "minbazaarpush.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940758081863:android:3895d56976d9cdc0",
+        "android_client_info": {
+          "package_name": "com.ionicframework.ecommerce821645"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940758081863-24eurk94d54hkhm4i0hj5qh25qhnnkfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEhp5ue15LH3zqMEIiCdfk8rt4-r4vLnQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
