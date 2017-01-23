@@ -32,14 +32,17 @@
       <div class="menu-header">
         <img src="img/l5.png">
       </div>
-      
+
       
       <ion-list>
-        <ion-item><b>Categories</b></ion-item>
-        
+      <ion-item> Categories <span></span> 
+      <ion-list>
         <ion-item  menu-close ng-repeat="category in categories track by $index" ng-click="goToProductCategories(category.name, category.menu_order, category.id)">
         {{category.name}}
         </ion-item>
+	</ion-list>
+</ion-item>
+
         <!--<ion-item  menu-close ui-sref="app.product-list">
         Coats &amp; Jackets
         </ion-item>
@@ -53,13 +56,17 @@
         </ion-item>-->
      
       
-        
-        <ion-item class="item-icon-right" menu-close ng-click="logout()">
+
+        <ion-item ng-if='user.username!=null' class="item-icon-right" menu-close ng-click="logout()">
           <img src="img/icons/icon-lock-light.png">
           Log out
         </ion-item>
+        <ion-item ng-if='user.username==null' class="item-icon-right" menu-close ng-click="logout()">
+          <img src="img/icons/icon-lock-light.png">
+          Login
+        </ion-item>
         
-        <ion-item class="item-icon-right" menu-close ng-click="openProfileModal()">
+        <ion-item ng-if='user.username!=null' class="item-icon-right" menu-close ng-click="openProfileModal()">
           <img src="img/icons/user_icon_light.png">
           Profile
         </ion-item>

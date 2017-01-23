@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $ionicScrollDelegate, StorageService, $state, Maestro, CartService, $ionicPopup, $ionicSlideBoxDelegate) {
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout,$localStorage, $ionicScrollDelegate, StorageService, $state, Maestro, CartService, $ionicPopup, $ionicSlideBoxDelegate) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,14 +11,14 @@ angular.module('starter.controllers', [])
     
     
   // });
- 
+
 
   $scope.$on("$ionicView.afterLeave", function (event, data) {
     // handle event
     $ionicScrollDelegate.scrollTop();
 
   });
-
+ 
 //get categories
   var getCategories = function(){
     //console.log('get categories');
@@ -31,7 +31,8 @@ angular.module('starter.controllers', [])
     })
   }
 getCategories();
-
+  
+   $scope.user=JSON.parse(localStorage.getItem('userObj'));
 
   //go to product pages based on categories
   $scope.goToProductCategories = function(catagoryName, menuOrder, id){
@@ -51,9 +52,12 @@ $scope.reloadView = function(){
 
 //get userObj
 var userObj = StorageService.getUserObj();
-
+ // alert("userObj"+localStorage.getItem('userObj'));
   //logout
   $scope.logout = function (userObj) {
+
+	localStorage.removeItem('userObj');
+		   location.reload(); 
     StorageService.remove();
     $state.go('onboarding');
   }
@@ -61,7 +65,6 @@ var userObj = StorageService.getUserObj();
 
   // Form data for the login modal
   $scope.loginData = {};
-
 
 
   // Create the search modal that we will use later
@@ -395,40 +398,40 @@ $scope.allImages = [];
     $scope.disableSubmit = false; // to disable and enable button on submit
 
 
+			localStorage.setItem('userObj','null');
 
-
-
+	//alert('login ke pehle' + localStorage.getItem('userObj'));
     //login function
     $scope.login = function () {
-	//alert(JSON.stringify(user));
-      $scope.disableSubmit = true;
-     // $ionicLoading.show();
-    // $scope.loading = true;
-    $pinroUiService.showLoading();
-      $dataService.$login($scope.user).then(function (res) {
-        console.log(res);
-        if (res.data && !res.data.error) {
-          var userObj = {
-            username: res.data.user.username,
-            cookie: res.data.cookie,
-            time: new Date(),
-            email: res.data.user.email,
-            user_id: res.data.user.id
-          }
+		//alert(JSON.stringify(user));
+      		$scope.disableSubmit = true;
+     		// $ionicLoading.show();
+    		// $scope.loading = true;
+    		$pinroUiService.showLoading();
+      		$dataService.$login($scope.user).then(function (res) {
+        		console.log(res);
+        		if (res.data && !res.data.error) {
+          		var userObj = {
+            			username: res.data.user.username,
+            			cookie: res.data.cookie,
+            			time: new Date(),
+            			email: res.data.user.email,
+            			user_id: res.data.user.id
+          			}// user object
+			localStorage.setItem('userObj',JSON.stringify(userObj));
+          		//StorageService.add(userObj); // store userObj on localStorage //commented by mizan
+	//  alert("login ke baad" + localStorage.getItem('userObj'));
+         		// StorageService.getUserObj();
+          		$state.go('app.editorial');		// commented by mizan
 
-          StorageService.add(userObj); // store userObj on localStorage
+        		} else {
+          			$scope.loginError = 'Invalid username or password';
+        		}
 
-          StorageService.getUserObj();
-          $state.go('app.editorial');
-
-        } else {
-          $scope.loginError = 'Invalid username or password';
-        }
-
-        $scope.disableSubmit = false;
+       			 $scope.disableSubmit = false;
         //$ionicLoading.hide();
         // $scope.loading = false;
-        $pinroUiService.hideLoading();
+       			 $pinroUiService.hideLoading();
 
       }, function (err) {
         console.log(err);
@@ -809,7 +812,8 @@ var getCartItems = function(){
 
 
 $scope.goToCheckout = function(){ 
-  var user = StorageService.getUserObj();
+  var user=JSON.parse(localStorage.getItem('userObj'));
+ // var user = StorageService.getUserObj();
   if(user && user.cookie){
     
     $state.go('app.payment_step1');
@@ -1090,7 +1094,7 @@ $scope.payCashOnDelivery = function(){
   $state.go('app.payment_step3', {orderId: orderId, payByCash: true})
 }
 $scope.payOnline = function(){
-	alert(JSON.stringify(StorageService.getUserObj()));
+	//alert(JSON.stringify(StorageService.getUserObj()));
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 		  // added by mizan
                         var paymentStatus="pending";// creaded  by mizan 
@@ -1342,7 +1346,7 @@ $scope.show = 'orders'; //to show and hide orders and offer in profile
 
 $scope.orderList = [];
  $scope.offerPosts = [];
-
+$scope.username = JSON.parse(localStorage.getItem('userObj'));
 
 var getUserInfo = function(user_id){
 alert(JSON.stringify(StorageService.getUserObj()));

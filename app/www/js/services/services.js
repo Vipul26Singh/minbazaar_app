@@ -27,10 +27,14 @@ angular.module('starter.services', [])
             $localStorage.things.push(thing);
         }
         var _addUserObj = function (data) {
-            $localStorage.things.userObj = $localStorage.things.userObj || {};
-            $localStorage.things.userObj = data;
+		alert("ad user object " + JSON.stringify(data));
+		localStorage.setItem('userObj', JSON.stringify(data));
+           // $localStorage.things.userObj = $localStorage.things.userObj || {};
+            //$localStorage.things.userObj = data;
+		//alert("after"+JSON.stringify($localStorage.things.userObj));
         }
         var _getUserObj = function (data) {
+		//alert(JSON.stringify($localStorage.things.userObj));
 		console.log('Getting user idddddddddddddddddddddddddddddddddddddddd');
             console.log(JSON.stringify($localStorage.things.userObj));
            return $localStorage.things.userObj;

@@ -25,17 +25,17 @@
   <h4>Categories</h4>
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 
-<ion-slides  options="options" slider="data.slider" pager="false" style="height:140px">
+<ion-slides  options="{pagination: false}" slider="data.slider" pager="false" style="height:140px">
 	<ion-slide-page ng-repeat="x in categories track by $index"  style="border: 1px thick black" ng-if="$index % 2 == 0"> 
-		<div   ng-click="goToProductCategories(categories[$index].name, categories[$index].menu_order, categories[$index].id)" style="display:inline; float:left; height:100px; width:45%; margin:8px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-align: center; border-radius:5px; padding:2px;">
-			<img src="{{categories[$index].image.src}}" style="height:50px;"/>
+		<div   ng-click="goToProductCategories(categories[$index].name, categories[$index].menu_order, categories[$index].id)" style="display:inline; float:left; height:100px; width:45%; margin:8px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-align: center; border-radius:5px; padding:2px;  ">
+			<img src="{{categories[$index].image.src}}" style="height:50px;  opacity: 0.75"/>
 
 			<div class="name" ng-bind-html="categories[$index].name" style="bottom:2px"></div>
 
 		</div>
 		
 		<div   ng-click="goToProductCategories(categories[$index+1].name, categories[$index+1].menu_order, categories[$index+1].id)" style="display:inline;  float: left; height:100px; width:45%;margin:8px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-align: center; border-radius:5px; padding:2px;">
-			<img src="{{categories[$index+1].image.src}}" style="height:50px;"/>
+			<img src="{{categories[$index+1].image.src}}" style="height:50px;  opacity: 0.75"/>
 			<div class="name" ng-bind-html="categories[$index+1].name" "></div>
 
 		</div>
