@@ -20,10 +20,19 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
         },
+        "cordova-plugin-fcm": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
         },
         "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
+        },
+        "cordova-plugin-velda-devicefeedback": {
             "PACKAGE_NAME": "com.ionicframework.ecommerce821645"
         },
         "cordova-plugin-whitelist": {
