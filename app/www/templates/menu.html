@@ -35,12 +35,12 @@
 
       
       <ion-list>
-      <ion-item> Categories <span></span> 
-      <ion-list>
+
+  
         <ion-item  menu-close ng-repeat="category in categories track by $index" ng-click="goToProductCategories(category.name, category.menu_order, category.id)">
         {{category.name}}
         </ion-item>
-	</ion-list>
+	
 </ion-item>
 
         <!--<ion-item  menu-close ui-sref="app.product-list">

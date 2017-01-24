@@ -911,7 +911,7 @@ var getUserInfo = function(user_id){
    //$scope.loading = true;
    $pinroUiService.showLoading();
     Maestro.$getCustomerById(user_id).then(function(res){
-    console.log(res);
+    alert("hello mizzz");    console.log(res);
  //$scope.loading = false;
  $pinroUiService.hideLoading();
 if(res.data.id){
@@ -922,7 +922,7 @@ if(res.data.id){
 };
 
 if(!$scope.order.shipping.country){
-      $scope.order.shipping.country = "GB";
+      $scope.order.shipping.country = "IN";
     }
 
   }, function(err){
@@ -996,10 +996,11 @@ console.log($scope.order);
 Maestro.$createOrder($scope.order).then(function(res){
   console.log(res);
   if(res.data.id){
+	alert(JSON.stringify(res.data));
     CartService.removeAll(); //remove all item in cart
-    $state.go('app.payment_step2', {orderId: res.data.id, amount: res.data.total, currency: res.data.currency});
+    $state.go('app.payment_step2', {orderId: res.data.id, amount: res.data.total, currency: res.data.currency, name: res.data.billing.first_name+" "+res.data.billing.last_name, phone: res.data.billing.phone});
   }else{
-    alert(`Order couldn't be processed`);
+    alert('Order couldn\'t be processed');
   }
 
 $pinroUiService.hideLoading();
@@ -1023,7 +1024,7 @@ $pinroUiService.hideLoading();
 
 
 })
-.controller('PaymentCtrl', function ($scope, $http, $stateParams, $ionicPopup, $ionicHistory, $state, StorageService, Maestro, CartService,$cordovaNgCardIO, $pinroUiService ) {
+.controller('PaymentCtrl', function ($scope, $http, $stateParams, $ionicPopup, $ionicHistory, $state, StorageService, Maestro, CartService,$cordovaNgCardIO, $pinroUiService, $interval) {
   
 
 var orderId;
@@ -1036,15 +1037,18 @@ var orderId;
  $scope.$on("$ionicView.enter", function(event, data){
    // handle event
    console.log("State Params: ", data.stateParams);
-
+	   
    orderId = data.stateParams.orderId;
 
   // pass order and amount details for stripe
-  dataForStripe.amount = parseInt(data.stateParams.amount) * 100; // amount is in cents/pence for stripe so * 100
+  dataForStripe.amount = parseInt(data.stateParams.amount); // amount is in cents/pence for stripe so * 100
       dataForStripe.currency = data.stateParams.currency;
+      dataForStripe.name = data.stateParams.name;
+      dataForStripe.phone = data.stateParams.phone;
       dataForStripe.description =  "Payment for Maestro Order #"+ orderId;
 
  });
+
 
 //Stripe card payment_method
 
@@ -1091,18 +1095,28 @@ $pinroUiService.showLoading();
     }
 
 $scope.payCashOnDelivery = function(){
+	
   $state.go('app.payment_step3', {orderId: orderId, payByCash: true})
 }
 $scope.payOnline = function(){
+
+
+  var win=window.open("https://minbazaar.com/wp_instamojo_gate/success.php", "_blank", "location=no&clearcache=yes&zoom=no&toolbar=no,status=no,titlebar=no");
+	win.addEventListener("loadstop", function() { 
+		win.executeScript({code: "alert('imin the mobile');"});
+});
 	//alert(JSON.stringify(StorageService.getUserObj()));
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 		  // added by mizan
+			
+		/*	var bemail= JSON.parse(localStorage.getItem('userObj')).email;
+			alert(JSON.stringify(dataForStripe)+bemail);
                         var paymentStatus="pending";// creaded  by mizan 
 			link = 'https://minbazaar.com/wp_instamojo_gate/payment.php';
-			$http.post(link, {username : 'mizan',
-				amount : '20',
-			        email : 'mizan@gmail.com',
-				phone : '9424081993'}).then(function (res){
+			$http.post(link, {username : dataForStripe.name,
+				amount : dataForStripe.amount,
+			        email : bemail,
+				phone : dataForStripe.phone}).then(function (res){
 				//window.open(res.data+"?embed=form", '_blank', 'location=no');
 			    	var win = window.open(res.data+"?embed=form", '_blank', 'location=no, toolbar=yes, EnableViewPortScale=yes');
 				win.addEventListener("loadstart", function(){
@@ -1111,7 +1125,7 @@ $scope.payOnline = function(){
 				
 				win.addEventListener("loadstop", function() {
 					navigator.notification.activityStop();
-					win.executeScript({code: "localStorage.setItem('closingwindow','open'); localStorage.setItem('paymentstatus','pending')"});
+					win.executeScript({code: "localStorage.setItem('closingwindow','open'); localStorage.setItem('paymentstatus','pending'); alert('imin the mobile');"});
 					var loop = $interval(function(){
 						win.executeScript({code: "localStorage.getItem('closingwindow');"},
                             			function(values){
@@ -1141,7 +1155,7 @@ $scope.payOnline = function(){
 								});
 					}
 				})// exit event listner
-        		}); // post method
+        		});*/ // post method
 			
 // if payment done
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1170,7 +1184,7 @@ $scope.scanCard = function(){
 
 })
 
-.controller('OrderConfirmCtrl', function ($scope, $stateParams, $ionicHistory, $state, StorageService, Maestro, CartService, $pinroUiService) {
+.controller('OrderConfirmCtrl', function ($scope, $stateParams, $ionicHistory, $state, $ionicPopup, StorageService, Maestro, CartService, $pinroUiService) {
 
 
 

@@ -97,7 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('app.payment_step2', {
-    url: '/payment_step2/:orderId/:amount/:currency',
+    url: '/payment_step2/:orderId/:amount/:currency/:name/:phone',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step2.html',
