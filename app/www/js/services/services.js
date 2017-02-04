@@ -35,7 +35,6 @@ angular.module('starter.services', [])
         }
         var _getUserObj = function (data) {
 		//alert(JSON.stringify($localStorage.things.userObj));
-		console.log('Getting user idddddddddddddddddddddddddddddddddddddddd');
             console.log(JSON.stringify($localStorage.things.userObj));
            return $localStorage.things.userObj;
         }

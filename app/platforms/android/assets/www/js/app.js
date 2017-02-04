@@ -20,7 +20,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleDefault();
     }
 
- console.log("window.stripe ", window.stripe);
 
 
   });
@@ -48,7 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
     .state('onboarding', {
       url: '/onboarding',
-          templateUrl: 'templates/onboarding.html',
+          templateUrl: 'templates/login.html',
           controller: 'LoginCtrl'
     })
     .state('signin', {
@@ -97,7 +96,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('app.payment_step2', {
-    url: '/payment_step2/:orderId/:amount/:currency',
+    url: '/payment_step2/:orderId/:amount/:currency/:name/:phone',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step2.html',
@@ -106,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('app.payment_step3', {
-    url: '/payment_step3/:orderId/:transactionId/:payByCash',
+    url: '/payment_step3/:orderId/:transactionId/:payByCash/:amount',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step3.html',

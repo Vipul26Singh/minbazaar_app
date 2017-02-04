@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.ecommerce821645" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>MINBAZAAR APP</name>
+<widget id="com.minbazaar.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>MINBAZAAR</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Complete Swadeshi Ecommerce Application.
     </description>
-  <author email="minbazaa@minbazaar.com" href="https://minbazaar.com/">
+  <author email="minbazaar@gmail.com" href="https://minbazaar.com/">
       My India Kart Pvt Ltd
     </author>
   <content src="index.html"/>

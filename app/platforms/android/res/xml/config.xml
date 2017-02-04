@@ -1,17 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.ecommerce821645" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.minbazaar.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="CardIO">
         <param name="android-package" value="com.keepe.plugins.cardio.CardIO" />
-    </feature>
-    <feature name="Stripe">
-        <param name="android-package" value="com.telerik.stripe.StripePlugin" />
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
     <feature name="FCMPlugin">
         <param name="android-package" value="com.gae.scaffolder.plugin.FCMPlugin" />
         <param name="onload" value="true" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
@@ -33,11 +36,11 @@
         <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
-    <name>MINBAZAAR APP</name>
+    <name>MINBAZAAR</name>
     <description>
-        An Ionic Framework and Cordova project.
+        Complete Swadeshi Ecommerce Application.
     </description>
-    <author email="minbazaa@minbazaar.com" href="https://minbazaar.com/">
+    <author email="minbazaar@gmail.com" href="https://minbazaar.com/">
       My India Kart Pvt Ltd
     </author>
     <content src="index.html" />
@@ -73,7 +76,4 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-    </feature>
 </widget>

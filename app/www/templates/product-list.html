@@ -7,7 +7,7 @@
 				<a  class="button" ng-click="order = 'name'; scrollToTop()" ng-class="{'color-black': order=='name'}">name</a>
 			</div>
 			<div class="col">
-				<a class="button"  ng-click="order = 'price'; scrollToTop()" ng-class="{'color-black': order=='price'}">price</a>
+				<a class="button"  ng-click="order = sorterFunc; scrollToTop()" ng-class="{'color-black': order=='price'}">price</a>
 			</div>
 			<div class="col">
 				<a class="button button-icon"  ng-click="layout = 'list'; scrollToTop()" ng-class="{'color-grapefruit': layout=='list'}"><i class="icon ion-ios-list-outline"></i></a>
@@ -29,9 +29,21 @@
 					</div>
 					<h5>{{item.name}}</h5>
 					<small class="category-name">{{item.categories[0].name}}</small>
-					<small class="price">&#8377;{{item.price}}</small>
+					<span ng-if="item.sale_price!=''">
+					<span class="price" style="text-decoration: line-through; font-weight:bold; color:red"> 
+						<span style="font-weight:normal; color:black;">&#8377;{{item.regular_price}}&nbsp;&nbsp;</span>
+					</span>
+					</span>
+					<span class="price">&#8377;{{item.price}}</span>
 				</li>
 			</ul>
 		</div>
+		
+
+
+				<button class="button button-dark button-block button-round animated bounceIn"  ng-click="loadMoreProducts()"> {{loadText}} <ion-spinner ng-if='isLoading'></ion-spinner> </button>
+
+
+
 	</ion-content>
 </ion-view>

@@ -10,9 +10,9 @@
         <div class="bar bar-subheader item-input-inset subheader-with-input">
   <label class="item-input-wrapper">
     
-    <input type="search" placeholder="Type here" ng-model="search">
+    <input type="search" placeholder="Type here" ng-model="search1">
   </label>
-  <button class="button button-icon">
+  <button class="button button-icon" ng-click="searchProducts()">
     <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
     <img src="img/icons/search_icon.svg">
   </button>
@@ -32,13 +32,19 @@
 					<small class="price">&#8377;{{item.price}}</small>
 				</li>-->
         <li class="list-item" ng-repeat="item in productList | orderBy:filterBy | filter:search" ng-click="goToProduct(item.id)">
-					<div class="product-image" style="background: url('{{item.images[0].src}}'); background-size:cover; background-repeat: no-repeat; height: 200px;">
+					<div class="product-image" style="background: url('{{item.images[0].src}}'); background-size:contain; background-repeat: no-repeat; background-position:center; height: 200px;">
 					</div>
 					<h5>{{item.name}}</h5>
 					<small class="category-name">{{item.categories[0].name}}</small>
-					<small class="price">&#8377;{{item.price}}</small>
+					<span ng-if="item.sale_price!=''">
+					<span class="price" style="text-decoration: line-through; font-weight:bold; color:red"> 
+						<span style="font-weight:normal; color:black;">&#8377;{{item.regular_price}}&nbsp;&nbsp;</span>
+					</span>
+					</span>
+					<span class="price">&#8377;{{item.price}}</span>
 				</li>
 			</ul>
 		</div>
+	<button ng-show="buttonShow" class="button button-dark button-block button-round animated bounceIn"  ng-click="loadMoreProducts()"> {{loadText}} <ion-spinner ng-if='isLoading'></ion-spinner> </button>
 </ion-content>
 </ion-modal-view>

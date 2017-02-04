@@ -1,25 +1,16 @@
 <ion-view view-title="Editorial" hide-back-button="false" >
 
 	<ion-nav-title style="left:0; right:0;" >  
-		<img class="home-logo" src="img/l5.png" height="35px" style="vertical-align: middle; margin: 0 auto;">
+		<img class="home-logo" src="img/l5.png" height="25px" style="vertical-align: middle; margin: 0 auto;">
 	</ion-nav-title>
- <div class="bar bar-subheader item-input-inset subheader-with-input" style="margin-left:0px; width:100%;  border-style: solid;
-    border-bottom: 1px solid #ddd;">
-  <label class="item-input-wrapper" style="margin-left:0px">
-    
-    <input type="search" placeholder="Search here" ng-model="search" >
-  </label>
-  <button class="button button-icon">
-    <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
-    <img src="img/icons/search_icon.svg">
-  </button>
-</div>
-	
-			
-	
-	<ion-content class="has-subheader">
 
-<ion-slides  options="{  initialSlide: 0, loop: true, autoplay:3000}" slider="data.slider" pager="false" style="height:150px; margin-top:7px">
+
+	
+ 		
+	
+	<ion-content>
+
+<ion-slides  options="{  initialSlide: 0, loop: true, autoplay:3000}" slider="data.slider" pager="false" style="height:150px;">
 	<ion-slide-page> 
 		<img src="https://minbazaar.com/wp-content/uploads/2017/01/swades12-1.jpg" style="height:200px; object-fit: cover;">
 
@@ -57,7 +48,7 @@
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
 
 <ion-slides  options="{pagination: false}" slider="data.slider" style="height:100px; margin: 0 auto; padding-top:2px">
-	<ion-slide-page ng-repeat="x in categories track by $index"  style="border: 1px thick black" ng-if="$index % 4 == 0"> 
+	<ion-slide-page ng-repeat="x in categories track by $index"  style="border: 1px thick black" ng-if="$index % 4 == 0" ng-if="x.parent==0"> 
 		<div   ng-click="goToProductCategories(categories[$index].name, categories[$index].menu_order, categories[$index].id)" style="display:inline; float:left; height:100px; width:24%; ">
 			<div style="border: 1px solid #ddd; text-align: center; border-radius:50%; padding:2px; background-image:url({{categories[$index].image.src}}); background-size:contain; background-position:center; background-repeat:no-repeat; height:50px; width:50px; margin: 0 auto;">
 			</div>
@@ -124,23 +115,28 @@
 
 -->
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------->
+<ion-list>
+	<ion-item style="height:60px; background-image:url(img/offers.jpg); background-size:contain;">
+
+	
+	</ion-item>
+</ion-list>
 
 
-
-
-<div class="product-list" style="min-height: calc(100vh - 80px);">
-			<ul>
-				<li class="list-item" ng-repeat="item in latestProducts track by $index" ui-sref="app.single({id: item.id})" style="border: 1px solid #ddd; text-align: center; border-radius:5px; padding:2px;">
-					<div class="product-image" style="background: url('{{item.images[0].src}}'); background-size:contain; background-position: center;  background-repeat: no-repeat; height: 200px;">
-					</div>
-					<h5>{{item.name}}</h5>
-					<small class="category-name">{{item.categories[0].name}}</small>
-					<small class="price" style="color:red">&#8377; {{item.price}}</small>
-				</li>
-			</ul>
-		</div>
-
-
+<!--product list -->
+	<div class="product-list" style="min-height: calc(100vh - 80px);">
+		<ul>
+			<li class="list-item" ng-repeat="item in latestProducts track by $index" ui-sref="app.single({id: item.id})" style="border: 1px solid #ddd; text-align: center; border-radius:5px; padding:2px;">
+				<div class="product-image" style="background: url('{{item.images[0].src}}'); background-size:contain; background-position: center;  background-repeat: no-repeat; height: 200px;">
+				</div>
+				<h5>{{item.name}}</h5>
+				<small class="category-name">{{item.categories[0].name}}</small>
+				<small class="price" style="color:red">&#8377; {{item.price}}</small>
+			</li>
+		</ul>
+	</div>
+<!-- End of product list -->
+<!--
 		<ion-list class="editorial-footer-list">
 			<ion-item ui-sref="app.single({id: 123})">
 			Blog	
@@ -152,7 +148,7 @@
 				Find Nearest Shop
 			</ion-item>
 		</ion-list>
-
+-->
 
 	</ion-content>
 </ion-view>

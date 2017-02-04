@@ -15,11 +15,19 @@
       </ion-nav-buttons>
 
       <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear" ng-click="ope nSearchModal()">
+          <i><img src="img/icons/search_icon.svg" width="24px"></i>
+          <div class="shopping-cart">
+         
+          </div></button>
         <button class="button button-icon button-clear" ng-click="openCartModal()">
           <i><img src="img/icons/cart-icon-dark.png" width="24px"></i>
           <div class="shopping-cart">
           <span class="badge badge-assertive header-badge"></span>
           </div></button>
+
+
+
     </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -29,19 +37,89 @@
     
     <ion-content>
       
-      <div class="menu-header">
-        <img src="img/l5.png">
+
+
+
+      <div ng-if="user!=null" class="menu-headr" style="padding-left:10; height:70px; background-color:black; color:white; ">
+
+		<div style="float:left; margin-left:25px; padding-top:15px;">
+        		<img height="25" width="25" style="vertical-align:middle;" src="img/icons/icon_user_white.svg">
+            		   <i style="font-size:15px">&nbsp;&nbsp;Hi! {{user.first_name}} {{user.last_name}}</i>
+		          
+		</div>
+
+
+
       </div>
 
-      
+      <div ng-if="user==null" class="menu-headr" style="padding-left:10; height:70px; background-color:black; color:white; ">
+
+		<div style="float:left; margin-left:25px; padding-top:15px;">
+        		<img height="25" width="25" style="vertical-align:middle;" src="img/icons/icon_user_white.svg">
+            		   <i style="font-size:15px">&nbsp;&nbsp;<button class="button button-clear" style="color:white;"ng-click="logout()">login/signup</button></i>
+		          
+		</div>
+
+
+
+      </div>
+
+
+
+
+
       <ion-list>
 
+
+
+     <ion-item ng-if="user!=null" class="item item-dark" style="padding:0px;">
+		<button class="button button-small button-clear" style="color:white; height:50px; width:30%; border-right: 1px solid white;  border-radius:0px" ng-click="openEditProfileModal()"> <img height="20" style="vertical-align:middle; margin-bottom:0px;"src="img/icons/eprofile.png"><span style="font-size:10px">&nbsp;Edit</span></button>
+
+
+<button class="button button-small button-clear" style="color:white; width:33%; height:50px;" ng-click="openProfileModal()">  <img height="20" style="vertical-align:middle;"src="img/icons/order.png"><span style="font-size:10px">&nbsp;Orders</span></button>
+
+<button class="button button-small button-clear" style="height:50px; color:white; width:30%; border-left: 1px solid white; border-radius:0px" ng-click="openSettingsModal()"> <img height="20" style="vertical-align:middle;"src="img/icons/setting.png"><span style="font-size:10px">&nbsp;Setings</span></button>
+	</ion-item>
+
+
+
+
+
+		<div ng-repeat="group in groups">
+        	
+          		<ion-item class="item-accordio" style="padding-left:5px" ng-if="group.items.length!=0" class="item-dark" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}" >
+              			
+            				{{group.name}} &nbsp; <span class="icon"  ng-class="isGroupShown(group) ? 'ion-chevron-up' : 'ion-chevron-down'" style="font-size:10px; right:0px; position:absolute;"></span>
+          		</ion-item>
+          		<ion-item  class="item-accordion" ng-repeat="item in group.items track by $index"  ng-show="isGroupShown(group);" menu-close ng-click="goToProductCategories(item.name, item.menu_order, item.id);" style="padding-bottom:;"> 
+				
+            		     {{item.name}}	
+          		</ion-item>
+
+		</div>	
+		<div ng-repeat="group in groups">
+			       <ion-item class="item-accordio" style="padding-left:5px" ng-if="group.items.length==0" class="item-dark" ng-click="goToProductCategories(group.name, item.menu_order, group.id);"  menu-close >
+              		
+            				{{group.name}}
+          		</ion-item>
+		</div>		
+        	
+      </ion-list>      
+
+  
+
+
+
+
+
+      <ion-list>
+<!--
   
         <ion-item  menu-close ng-repeat="category in categories track by $index" ng-click="goToProductCategories(category.name, category.menu_order, category.id)">
         {{category.name}}
         </ion-item>
-	
-</ion-item>
+	-->
+
 
         <!--<ion-item  menu-close ui-sref="app.product-list">
         Coats &amp; Jackets
@@ -57,26 +135,27 @@
      
       
 
-        <ion-item ng-if='user.username!=null' class="item-icon-right" menu-close ng-click="logout()">
+        <ion-item style="padding-left:5px" ng-if='user.username!=null' class="item-icon-right" menu-close ng-click="logout()">
           <img src="img/icons/icon-lock-light.png">
           Log out
         </ion-item>
-        <ion-item ng-if='user.username==null' class="item-icon-right" menu-close ng-click="logout()">
+        <ion-item style="padding-left:5px" ng-if='user.username==null' class="item-icon-right" menu-close ng-click="logout()">
           <img src="img/icons/icon-lock-light.png">
           Login
         </ion-item>
         
-        <ion-item ng-if='user.username!=null' class="item-icon-right" menu-close ng-click="openProfileModal()">
+     <!--   <ion-item style="padding-left:5px"   class="item-icon-right" ng-if='user.username!=null' menu-close ng-click="openProfileModal()"> 
           <img src="img/icons/user_icon_light.png">
           Profile
         </ion-item>
         </ion-item>
-        <ion-item class="item-icon-right" menu-close ng-click="openSearchModal()">
+        <ion-item style="padding-left:5px"  class="item-icon-right" menu-close ng-click="openSearchModal()">
           <img src="img/icons/search_icon.svg">
           Search
-        </ion-item>
+        </ion-item>-->
 
-        
+        <ion-item>
+	</ion-item>
       </ion-list>
 
 
@@ -84,7 +163,7 @@
     </ion-content>
       <div class="bar bar-footer">
         <div class="button-bar bar-dark">
-  <a class="button" ng-click="openWishlistModal()" menu-close><img src="img/icons/heart_icon.png" ></a>
+  <a class="button"  ng-click="openWishlistModal()" menu-close><img src="img/icons/heart_icon.png" ></a>
   <a class="button" ng-click="openCartModal()" menu-close><img src="img/icons/cart_icon.png"></a>
   <a class="button" ng-click="openSettingsModal()" menu-close><img src="img/icons/settings_icon.png"></a>
 </div>

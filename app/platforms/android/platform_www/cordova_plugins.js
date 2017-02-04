@@ -9,62 +9,6 @@ module.exports = [
         ]
     },
     {
-        "id": "com.telerik.stripe.stripe",
-        "file": "plugins/com.telerik.stripe/www/stripe.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.charges",
-        "file": "plugins/com.telerik.stripe/www/charges.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.charges"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.customers",
-        "file": "plugins/com.telerik.stripe/www/customers.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.customers"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.recipients",
-        "file": "plugins/com.telerik.stripe/www/recipients.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.recipients"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.subscriptions",
-        "file": "plugins/com.telerik.stripe/www/subscriptions.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.subscriptions"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.transfers",
-        "file": "plugins/com.telerik.stripe/www/transfers.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.transfers"
-        ]
-    },
-    {
-        "id": "com.telerik.stripe.coupons",
-        "file": "plugins/com.telerik.stripe/www/coupons.js",
-        "pluginId": "com.telerik.stripe",
-        "clobbers": [
-            "stripe.coupons"
-        ]
-    },
-    {
         "id": "cordova-plugin-device.device",
         "file": "plugins/cordova-plugin-device/www/device.js",
         "pluginId": "cordova-plugin-device",
@@ -73,11 +17,36 @@ module.exports = [
         ]
     },
     {
+        "id": "cordova-plugin-dialogs.notification",
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "id": "cordova-plugin-dialogs.notification_android",
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
         "id": "cordova-plugin-fcm.FCMPlugin",
         "file": "plugins/cordova-plugin-fcm/www/FCMPlugin.js",
         "pluginId": "cordova-plugin-fcm",
         "clobbers": [
             "FCMPlugin"
+        ]
+    },
+    {
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
         ]
     },
     {
@@ -112,31 +81,22 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
-    },
-    {
-        "id": "cordova-plugin-inappbrowser.inappbrowser",
-        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-        "pluginId": "cordova-plugin-inappbrowser",
-        "clobbers": [
-            "cordova.InAppBrowser.open",
-            "window.open"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "com.keepe.cardio": "1.0.9",
-    "com.telerik.stripe": "1.0.8",
-    "cordova-plugin-console": "1.0.4",
     "cordova-plugin-device": "1.1.3",
+    "cordova-plugin-dialogs": "1.3.1",
     "cordova-plugin-fcm": "2.1.1",
+    "cordova-plugin-inappbrowser": "1.6.1",
     "cordova-plugin-splashscreen": "4.0.0",
     "cordova-plugin-statusbar": "2.2.0",
     "cordova-plugin-velda-devicefeedback": "0.0.2",
     "cordova-plugin-whitelist": "1.3.0",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-inappbrowser": "1.6.2-dev"
+    "cordova-plugin-console": "1.0.4"
 };
 // BOTTOM OF METADATA
 });

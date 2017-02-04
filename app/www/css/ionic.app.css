@@ -25,6 +25,10 @@ $dark:                            #444 !default;
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+
+
+
+
 @font-face {
   font-family: "Ionicons";
   src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
@@ -9947,7 +9951,7 @@ Menu & Header
   .platform-android .menu ion-list ion-item:last-child,
   .platform-ios .menu ion-list ion-item:last-child,
   .platform-windowsphone .menu ion-list ion-item:last-child {
-    margin-bottom: 44px; }
+    margin-bottom: -2px; }
 
 .platform-android .menu .bar-footer,
 .platform-ios .menu .bar-footer,

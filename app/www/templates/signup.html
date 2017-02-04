@@ -15,6 +15,12 @@
 
 			<ion-list>
 				<ion-item class="item-input ">
+					
+					<input class="col-40" type="text" name="email" placeholder="First Name"  ng-model="user.first_name" required>
+					<input class="col-40" type="text" name="email" placeholder="Last Name"  ng-model="user.last_name" required>
+
+				</ion-item>
+				<ion-item class="item-input ">
 					<i><img src="img/icons/icon_email.svg"></i>
 					<input type="email" name="email" placeholder="Email"  ng-model="user.email" required>
 
@@ -29,13 +35,26 @@
 					<input type="password" name="confirm_pass2"  placeholder="********" ng-model="confirm_pass" ng-match="user.user_pass" required>
 
 				</ion-item>
-                <ion-item class="item-input ">
-					<i><img src="img/icons/icon_user.svg"></i>
+                		<ion-item class="item-input ">
+					<i><img src="img/icons/icon_user.svg" ></i>
 					<input type="text" name="username" placeholder="Username" ng-model="user.username" required>
 
 				</ion-item>
+				
+                		<ion-item class="item-input"  style="padding: 10px 0px !important;">
+					<i><img src="img/icons/icon_mobile.svg" height="22" width="22"></i>
+					<input   class="col-40" style="padding-right:0; position:relative;" type="text" name="mobile" placeholder="Mobile No." ng-model="user.mobile_number" ng-pattern="phoneNumbr" required>
+					<button ng-show="status4" class="col-45 button button-dark" style="border-radius:0px 15px 15px 0px;" ng-click="generateOTP()"  ng-disabled='sendotp'>{{otpBtn}}</button>
+				</ion-item>
+				  <ion-item class="item-input" ng-show="showotpinput()">			
+					<input  type="text" name="otp" placeholder="Enter OTP" ng-model="user.otp"  required>
+						
+				</ion-item>
 
 			</ion-list>
+			
+			<div class="positive" ng-show="showotpinput()">OTP has been sent to your Mobile No. Resend link will be open after 1 minute </div>
+			<span class="assertive" ng-show="signForm.mobile.$error.pattern">Please Enter the Phone no matching  pattern-9999999999</span> 
 			
 
 		</div>

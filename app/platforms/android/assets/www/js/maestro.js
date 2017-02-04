@@ -23,7 +23,7 @@ return {
 
             //Service Function to get products by category
             $getCategories : function () {
-
+           
               return $http.get( request.url + '/list-categories.php', {
                     params: request.params,
                     headers: {
@@ -35,11 +35,12 @@ return {
             },
 
             //Service Function to get products by category
-            $getProductsByCategory : function (categoryId) {
+            $getProductsByCategory : function (categoryId,page) {
 
                 var parameters = angular.copy(request.params);
                 if(categoryId){
                     parameters.category = categoryId;
+		    parameters.page=page;
                 }
 
               return $http.get( request.url + '/list-products.php', {
@@ -52,8 +53,10 @@ return {
                 
             },
             //Service Function to get products by category
-            $getAllProducts : function () {
-		alert(JSON.stringify(request.params));
+            $getAllProducts : function (searchString,page) {
+		   request.params.search=searchString;
+		   request.params.page=page;
+		   	alert(JSON.stringify(request.params));
               return $http.get( request.url + '/list-products.php', {
                     params: request.params,
                     headers: {
@@ -84,7 +87,8 @@ return {
                 console.log(orderData);
 
                 
-
+		console.log(JSON.stringify(orderData));
+		console.log(JSON.stringify(request.params));
                 return $http.post( request.url + '/create-order.php',orderData, {
                     params: request.params,
                     headers: {
@@ -109,7 +113,6 @@ return {
             },
             //Service Function to get order by customerid
             $getOrderByCustomer : function (customerId) {
-
                 var orderParams = request.params;
                 orderParams.customer = customerId;
 
@@ -165,6 +168,39 @@ return {
                     
                 })
             },
+	       $generateOTP : function (optObj) {
+                 
+
+                
+
+                return $http.post( 'https://www.minbazaar.com/wp-content/plugins/minbazaar_user_authentication/external/send_otp.php',optObj,{
+		  // data: optObj,//'auth_key=ck_bca5ee0c5f916c12896590606abab1c4cee4cc08&mobile_no=9424081993',
+                  //  params: optObj,
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                    
+
+                    
+                })
+            },
+	       $validateOTP : function (optObj) {
+                 
+
+                
+
+                return $http.post( 'https://www.minbazaar.com/wp-content/plugins/minbazaar_user_authentication/external/send_otp.php',optObj,{
+		  // data: optObj,//'auth_key=ck_bca5ee0c5f916c12896590606abab1c4cee4cc08&mobile_no=9424081993',
+                  //  params: optObj,
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                    
+
+                    
+                })
+            },
+
 }
 
 

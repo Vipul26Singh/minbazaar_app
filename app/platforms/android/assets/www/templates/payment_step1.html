@@ -44,14 +44,19 @@
     <input type="text" placeholder="City" ng-model="order.shipping.city">
 
       </ion-item>
-      <ion-item class="item-input item-select ">
-          <div class="input-label">
-      Country
-    </div>
-          <country-select cs-required ng-model="order.shipping.country"></country-select>
+     <ion-item class="item-input ">
+          
+    <input type="text" placeholder="State" ng-model="order.shipping.state">
 
       </ion-item>
-      
+   <!--   <ion-item class="item-input item-select ">
+          <div class="input-label">
+      State
+    </div>
+          <country-select cs-required ng-model="order.shipping.state"></country-select>
+
+      </ion-item>
+      -->
           
     
   </ion-list>
