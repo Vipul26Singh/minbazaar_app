@@ -10,6 +10,7 @@
         
 	<ion-content>
 
+
 <div class="cart-list">
 			
             <ion-list ng-if="CartItemList.length">
@@ -30,9 +31,14 @@
           </div>
   </ion-item>
             </ion-list>
-		</div>
 
-        <div class="price-overview animated fadeInUpBig">
+</div>
+<div><h4>Select Payment Method</h4></div>
+
+<ion-radio style="margin:0px" ng-model="choice.answer" ng-value="'cod'" >Cash on Delivery &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ion-radio>
+<ion-radio style="margin:0px" ng-model="choice.answer" ng-value="'online'" checked='true'>Net Banking/Credit Card/Debit Card</ion-radio>
+
+        <div style="" class="price-overview animated fadeInUpBig">
             <div class="row">
                 <div class="col">
                     Subtotal:
@@ -57,18 +63,41 @@
                     50 
                 </div>
             </div>
-            <div class="row total">
+	    <div class="row" ng-show="choice.answer=='cod'">
+                <div class="col">
+                    Cash On Delivery Charges:
+                </div>
+                <div class="col color-grapefruit">
+                    50 
+                </div>
+            </div>
+	    <div class="row total" ng-show="choice.answer!='cod'">
                 <div class="col">
                     Total
                 </div>
+		<div class="col">
+                    {{ calculateGrandTotal()}}
+                </div>
+            </div>	
+            <div class="row total"  ng-show="choice.answer=='cod'">
                 <div class="col">
-                   &#8377; {{calculateGrandTotal()}}
+                    Total
+                </div>
+		<div class="col">
+                    {{ calculateGrandTotal()+50}}
                 </div>
             </div>
+
+
+
+
+
+
         </div>
             <div class="footer-button  animated fadeInUpBig">
-             <button class="button button-dark button-block button-round button-outline " ng-disabled="!CartItemList.length" ng-click="goToCheckout()">Checkout</button>
+             <button class="button button-dark button-block button-round button-outline " ng-disabled="!CartItemList.length || !choice.answer" ng-click="goToCheckout(choice)">Checkout</button>
             </div>
+
 
 </ion-content>
 </ion-modal-view>

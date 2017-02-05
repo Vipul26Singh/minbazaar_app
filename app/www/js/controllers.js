@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout,$localStorage, $ionicScrollDelegate, StorageService, $state, Maestro, CartService, $ionicPopup, $ionicSlideBoxDelegate) {
+.controller('AppCtrl', function ($scope, $ionicModal,$rootScope, $timeout,$localStorage, $ionicScrollDelegate, StorageService, $state, Maestro, CartService, $ionicPopup, $ionicSlideBoxDelegate) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,9 +11,9 @@ angular.module('starter.controllers', [])
     
     
   // });
-
-
+  localStorage.setItem('count','0');
   $scope.$on("$ionicView.afterLeave", function (event, data) {
+	
     // handle event
     $ionicScrollDelegate.scrollTop();
 
@@ -602,12 +602,20 @@ $scope.allImages = [];
   })
   .controller('MainCtrl', function ($scope, $state, $ionicHistory, $ionicScrollDelegate, Maestro, $dataService, $pinroUiService) {
 	$pinroUiService.hideLoading();
+	
+ 
+
+
+
 
     $scope.featuredProducts = [];
     $scope.latestProducts = [];
 
     $scope.$on("$ionicView.enter", function (event, data) {
+	//$scope.reload();
+	//$route.reload();
       $ionicHistory.clearHistory();
+
       getOfferImg();
       getEditorialProducts(); //get nonce for signUp
     });
@@ -709,7 +717,7 @@ $scope.$on("$ionicView.enter", function(event, data){
    		// $scope.loading = false; //hide ionicLoading
 	})
 
-	$scope.$broadcast('scroll.infiniteScrollComplete');
+	
 
 	
    }
@@ -906,58 +914,48 @@ $ionicScrollDelegate.scrollTop(); // scroll to Top
 })
 
 .controller('CartCtrl', function ($scope, $state, $stateParams, $timeout, Maestro, CartService, StorageService, $pinroUiService) {
+  	//CartService.getAll();
+  	$scope.CartItemList = [];
+	$scope.COD=false;
+ 	$scope.charges=50;
+	//Get CartItemList function
+	var getCartItems = function(){
+    		console.log('cart');
+    		if(CartService.getAll().length){
+        		$scope.CartItemList = CartService.getAll();
+        		addToCartAnimation();
+      		}
+  	}
+  	$scope.$on('modal.shown', function(event, data) {
+  		console.log('Modal is shown!'+ data.id);
+  		if(data.id === 'cart'){
+    			getCartItems(); //populate CartItemList from CartService
+  		}
+	});
 
-  //CartService.getAll();
-  $scope.CartItemList = [];
-
-
-
-
-//Get CartItemList function
-var getCartItems = function(){
-    console.log('cart');
-    if(CartService.getAll().length){
-        $scope.CartItemList = CartService.getAll();
-        addToCartAnimation();
-      }
-  }
-
-  $scope.$on('modal.shown', function(event, data) {
-  console.log('Modal is shown!'+ data.id);
-  if(data.id === 'cart'){
-
-    getCartItems(); //populate CartItemList from CartService
-  }
-});
-
-//Animation function for Add to Cart
-    var cart = angular.element(document.getElementsByClassName("shopping-cart"));
-  var addToCartAnimation = function () {
-    cart.css({
-      'opacity': '1',
-      'animation': 'bounceIn 0.5s linear'
-    });
-
-    $timeout(function () {
-      cart.css({
-        'animation': ''
-      });
-    }, 500)
-  }
-
-
-
-$scope.goToCheckout = function(){ 
-  var user=JSON.parse(localStorage.getItem('userObj'));
- // var user = StorageService.getUserObj();
-  if(user && user.cookie){
-    
-    $state.go('app.payment_step1');
-  }else{
-    $pinroUiService.showConfirm('signin', "Please login to continue with your order");
-  }
-  $scope.closeCartModal();
-}
+	//Animation function for Add to Cart
+   	var cart = angular.element(document.getElementsByClassName("shopping-cart"));
+  	var addToCartAnimation = function () {
+    		cart.css({
+      			'opacity': '1',
+      			'animation': 'bounceIn 0.5s linear'
+    		});
+    		$timeout(function () {
+      			cart.css({
+        		'animation': ''
+      			});
+    		}, 500)
+  	}
+	$scope.goToCheckout = function(choice){ 
+  		var user=JSON.parse(localStorage.getItem('userObj'));
+ 		// var user = StorageService.getUserObj();
+  		if(user && user.cookie){
+    			$state.go('app.payment_step1',{method:choice.answer},{reload:true, inherit:false});
+  		}else{
+    			$pinroUiService.showConfirm('signin', "Please login to continue with your order");
+  		}
+  		$scope.closeCartModal();
+	}
 
   
 
@@ -994,8 +992,9 @@ $scope.removeItem = function(item){
 		};
 
 		// Calculates the grand total of the invoice
-		$scope.calculateGrandTotal = function (vatRate) {
-			return $scope.getSubtotal()+50;
+		$scope.calculateGrandTotal = function (value) {
+				return $scope.getSubtotal()+$scope.charges;
+		
 			/*if(vatRate){
 				return ($scope.calculateTax(vatRate) + $scope.getSubtotal());
 			} else{
@@ -1014,7 +1013,15 @@ $scope.removeItem = function(item){
 })
 
 
-.controller('OrderCtrl', function ($scope, $stateParams, $ionicHistory, $state, StorageService, Maestro, CartService, $pinroUiService) {
+.controller('OrderCtrl', function ($scope,  $rootScope, $stateParams, $ionicHistory, $state, StorageService, Maestro, CartService, $pinroUiService) {
+	if($stateParams.method=='cod')
+	   $scope.extraCharges=100;
+	else
+	   $scope.extraCharges=50;
+	
+	alert("Extracharges"+ $scope.extraCharges);
+	 localStorage.setItem('count','1');
+	alert("Inside order cntrlca daclkllllllllllllllllllllllllllllllllllllllllllllkcnalnalcajlcn l");
 	$scope.user = {};
 	$scope.regex = /^[789]\d{9}$/
 	$scope.order = {
@@ -1030,16 +1037,9 @@ $scope.removeItem = function(item){
     	{
       		"method_id": "flat_rate",
       		"method_title": "Flat Rate",
-      		"total": 50
+      		"total": $scope.extraCharges
     	}];
 	$scope.step1=JSON.parse(localStorage.getItem('userObj'));
-	
-	//$scope.order.shipping.first_name = $scope.step1.first_name;
-	//$scope.order.shipping.last_name = $scope.step1.last_name;
-	//$scope.order.shipping.phone = $scope.step1.mobile_number;
-	//alert(JSON.stringify($scope.order.shipping));
- 	//$scope.countryList = countries;
- 	//console.log($scope.countryList);
 	var getUserInfo = function(user_id){
    		//$scope.loading = true;
    		$pinroUiService.showLoading();
@@ -1098,7 +1098,8 @@ $scope.removeItem = function(item){
   		if(item.variation_id){
     			itemToPush.variation_id = item.variation_id;
   		}
-  		console.log(itemToPush);
+		console.log('Pushing item');
+  		console.log(JSON.stringify(itemToPush));
   		$scope.order.line_items.push(itemToPush);
 	})// angular for each
 
@@ -1116,7 +1117,8 @@ $scope.removeItem = function(item){
 			$scope.confirmOrder();
 		}		
 	}
-	$scope.confirmOrder = function(){											//confirm order
+	$scope.confirmOrder = function(){
+													//confirm order
   		$pinroUiService.showLoading();  	 	
 		$scope.order.shipping.country="India";
 //		$scope.order.shipping_lines[0].total=42.5;
@@ -1124,12 +1126,16 @@ $scope.removeItem = function(item){
 		if(user && user.user_id){
   			$scope.order.customer_id = user.user_id;
 		}
+
 		//alert(JSON.stringify($scope.order));
-		console.log($scope.order); // $scope.order.billing = $scope.order.shipping;
+		console.log('Scope order');
+		console.log(JSON.stringify($scope.order)); // $scope.order.billing = $scope.order.shipping;
 		//alert('$scope.order ' +JSON.stringify($scope.order));
 		//alert(JSON.stringify($scope.order));
+		console.log(JSON.stringify($scope.order));
 		Maestro.$createOrder($scope.order).then(function(res){
-  			console.log(res);
+			console.log('Confirming order');
+  			console.log(JSON.stringify(res));
 			//alert(JSON.stringify(res));
   			if(res.data.id){
 				
@@ -1138,7 +1144,8 @@ $scope.removeItem = function(item){
 							amount: res.data.total, 
 							currency: res.data.currency, 
 							name: res.data.billing.first_name+" "+res.data.billing.last_name, 
-							phone: res.data.billing.phone});
+							phone: res.data.billing.phone,
+							method: $stateParams.method });
   			}
 			else
 			{
@@ -1160,17 +1167,25 @@ $scope.removeItem = function(item){
 }) // orderCtrl
 
 .controller('PaymentCtrl', function ($scope, $http, $stateParams, $ionicPopup, $ionicHistory, $state, StorageService, Maestro, CartService,$cordovaNgCardIO, $pinroUiService, $interval) {
-  
+   	$scope.methodChosen= $stateParams.method;
+	 $scope.payment_method_selected=$stateParams.method;
+	alert($scope.payment_method_selected);
+	alert($stateParams.method);
+	$scope.amount = $stateParams.amount;
 
-var orderId;
 
- $scope.cardType = {};
-    $scope.card = {};
 
-    var dataForStripe = {};
-
- $scope.$on("$ionicView.enter", function(event, data){
-   // handle event
+	$scope.methodText="";
+	if($scope.methodChosen='cod')
+	   $scope.methodText='Cash On Delivery';
+	else
+	   $scope.methodText='Pay Online';
+	var orderId;
+ 	$scope.cardType = {};
+    	$scope.card = {};
+    	var dataForStripe = {};
+ 	$scope.$on("$ionicView.enter", function(event, data){
+   		// handle event
    console.log("State Params: ", data.stateParams);
 	   
    orderId = data.stateParams.orderId;
@@ -1276,21 +1291,19 @@ $scope.payOnline = function(){
 						
 					if(paymentobj.payment==="done"){
 						alert('payment success: payment_request_id'+ paymentobj.payment_request_id + 'payment_id'+ paymentobj.payment_id);
-						$state.go('app.payment_step3', {orderId: orderId, transactionId: paymentobj.payment_id});
+						$state.go('app.payment_step3', {orderId: orderId, transactionId: paymentobj.payment_id, status:'done'});
 					}
-					else if(paymentobj.payment==="cancel"){
-						alert('payment failed please go to your orders and payment again of your ');
-					}
-					else
+					else if(paymentobj.payment==="fail")
 					{
-						alert("order has been cancelled");
-						
-						$scope.goToMain();
-						/*$ionicPopup.alert({
-									title: 'payment failed',
-									template:'order has been cancelled'
-								});*/
+						alert("payment has been failed. Go to orders and pay again");
+						$state.go('app.payment_step3', {orderId: orderId, transactionId: paymentobj.payment_id, status: 'failed'});
 					}
+					
+					else {
+						alert('order cancel please go to your orders and payment again of your ');
+						$state.go('app.payment_step3', {orderId: orderId, status: 'cancel'});
+					}
+					
 				})// exit event listner
         		});// post method
 			
@@ -1302,7 +1315,7 @@ $scope.payOnline = function(){
     		$ionicHistory.nextViewOptions({
       			disableBack: true
     		});
-    		$state.go('app.editorial');
+    		$state.go('app.editorial', {}, { reload: true });
  	}
 $scope.scanCard = function(){
     $cordovaNgCardIO.scanCard()
@@ -1327,65 +1340,69 @@ $scope.scanCard = function(){
 
 })
 
-.controller('OrderConfirmCtrl', function ($scope, $stateParams, $ionicHistory, $state, $ionicPopup, StorageService, Maestro, CartService, $pinroUiService) {
+.controller('OrderConfirmCtrl', function ($scope, $rootScope, $stateParams, $ionicHistory, $state, $ionicPopup, StorageService, Maestro, CartService, $pinroUiService) {
 	var order = {};
+	$scope.statusp=$stateParams.status;
+	$scope.tid=$stateParams.transactionId;
+	$scope.orderStatus= 'Order accepted';
+	if($stateParams.status=='cancel'){
+	    	$scope.orderStatus='Payment Cancelled by you'
+	}
+	else if($stateParams.status=='failed'){		
+		$scope.orderStatus='Payment Failed'
+	}
 	var updateOrder = function(data){
   		$pinroUiService.showLoading();
   		//$scope.loading = true;
   		Maestro.$updateOrder(data).then(function(res){
-    		console.log(res)
-   		// $scope.loading = false;
-   		$pinroUiService.hideLoading();
-  	}, function(err){
-   	 	console.log(err);
-    		//$scope.loading = false;
-    		$pinroUiService.hideLoading();
-  	})
-}
-$scope.$on("$ionicView.enter", function(event, data){    // handle event
-	console.log("State Params: ", data.stateParams);
-    	if(data.stateParams.payByCash){
-        order = {
-              		id: data.stateParams.orderId,
-              		payment_method: 'Cash on delivery',
-              		payment_method_title: 'Cash on delivery',
-              		status: 'processing'
-          	}
-      }
-	else{
-        	order = {
-            		id: data.stateParams.orderId,
-            		transaction_id: data.stateParams.transactionId,
-            		payment_method: 'Instamojo',
-            		payment_method_title: 'Instamojo',
-            		set_paid: true,
-            		status: 'processing'
-        }
+    			console.log(res)
+   			// $scope.loading = false;
+   			$pinroUiService.hideLoading();
+  		}, function(err){
+   	 		console.log(err);
+    			//$scope.loading = false;
+    			$pinroUiService.hideLoading();
+  		})
+	}
+	$scope.$on("$ionicView.enter", function(event, data){    // handle event
+
+		console.log("State Params: ", data.stateParams);
+    		if(data.stateParams.payByCash){
+        		order = {
+              			id: data.stateParams.orderId,
+              			payment_method: 'Cash on delivery',
+              			payment_method_title: 'Cash on delivery',
+              			status: 'processing'
+	
+          		}
+      		}
+		else{
+        		order = {
+            			id: data.stateParams.orderId,
+            			transaction_id: data.stateParams.transactionId,
+            			payment_method: 'Instamojo',
+            			payment_method_title: 'Instamojo',
+            			set_paid: true,
+            			status: 'processing'
+			
+        		}
   
-   }
-  
-
-    
-
-   updateOrder(order); // update order
-
- });
-
+   		} 
+		updateOrder(order); // update order
+						if(localStorage.getItem('count')=='1'){
+							localStorage.setItem('count','0');
+							location.reload();	
+						}
+ 	}); //$on end
 
 //go to main screen
- $scope.goToMain = function () {
-    $ionicHistory.nextViewOptions({
-      disableBack: true
-    });
-
-    $state.go('app.editorial');
-  }
-
-
-
-
-
-
+ 	$scope.goToMain = function () {
+    		$ionicHistory.nextViewOptions({
+      			disableBack: true
+    		});
+	 	$state.transitionTo('app.editorial',null, { reload: true, inherit: false, notify: true });
+   // $state.go('app.editorial',{},{inherit:false,reload:true});
+  	}
 })
 .controller('WishlistCtrl', function ($scope, $stateParams, $state, $timeout, Maestro, WishlistService) {
 //CartService.getAll();
@@ -1500,7 +1517,7 @@ $scope.removeSelectedItems = function(){
    		// $scope.loading = false; //hide ionicLoading
 	})
 
-	$scope.$broadcast('scroll.infiniteScrollComplete');
+	//$scope.$broadcast('scroll.infiniteScrollComplete');
 
 	
    }
@@ -1510,11 +1527,11 @@ $scope.removeSelectedItems = function(){
 })
 
 //profile controller
-.controller('ProfileCtrl', function ($scope, $stateParams, $ionicHistory, $state, StorageService, $dataService, Maestro, CartService, $pinroUiService) {
-
+.controller('ProfileCtrl', function ($scope,$rootScope, $stateParams, $ionicHistory, $state, StorageService, $dataService, Maestro, CartService, $pinroUiService) {
+$rootScope.count=1;
 $scope.user = {}; // to assign and display user Data
 $scope.show = 'orders'; //to show and hide orders and offer in profile
-
+$scope.loadOrders = false;
 $scope.orderList = [];
  $scope.offerPosts = [];
 $scope.username = JSON.parse(localStorage.getItem('userObj'));
@@ -1541,13 +1558,14 @@ if(res.data.id){
 }
 //get all orders by customer
 var getOrdersByCustomer = function(userId){
-  // $scope.loading = true;
+  $scope.loadOrders = true;
   $pinroUiService.showLoading();
   Maestro.$getOrderByCustomer(userId).then(function(res){
     console.log(res);
 
     if(res.data.length){
       $scope.orderList = res.data;
+	$scope.loadOrders = false;
 
     }
      //$scope.loading = false;

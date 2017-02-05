@@ -53,6 +53,7 @@ Order history
                             <h3 class="price">{{order.total}} {{order.currency}}</h3>
   </ion-item>
             </ion-list>-->
+	<ion-spinner name="bubbles" ng-show="loadOrders"></ion-spinner>
                 <div ng-if="orderList.length" class="padding">
 
 <div class="card" ng-repeat="order in orderList track by $index" >

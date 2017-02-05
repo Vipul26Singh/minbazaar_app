@@ -2,16 +2,27 @@
 	
 	<ion-pane class="step3 has-header">
 
-        <h5>Order accepted</h5>
+        <h5>{{orderStatus}}</h5>
         <div class="line-holder">
                 <img src="img/icons/top-line-end.svg" width="50%">
         </div>
 
         
-  <div class="content">
+  <div class="content" ng-if="orderStatus=='Order accepted'">
       <img class="animated bounceIn" src="img/icons/icon-success-outline.svg">
       <h2 class="font-regular">Congratulations!</h2>
       <h5>Your order has been accepted.</h5>
+  </div>
+  <div class="content" ng-if="orderStatus=='Payment Cancelled by you'">
+      <img class="animated bounceIn" src="img/icons/icon-success-outline.svg">
+      <h2 class="font-regular">Payment Cancel!</h2>
+      <h5>Your order has been accepted. Go to your orders and pay again</h5>
+  </div>
+  <div class="content"  ng-if="orderStatus=='Payment Failed'">
+      <img class="animated bounceIn" src="img/icons/icon-success-outline.svg">
+        <h2 class="font-regular">Payment Failed</h2>
+        <h5>Your order has been accepted. Go to your orders and pay again</h5>
+	<h5>Transaction Id: {{tid}}</h5>
   </div>
 
 <div class="footer-button">

@@ -14,18 +14,17 @@
 
 <!--<h5 class="padding-bottom">Select payment method</h5>-->
 
-<div class="button-bar" ng-init="payment_method_selected = 'online'">
-  <!--<a class="button button-small" ng-class="{'button-light': payment_method_selected == 'card'}" ng-click="payment_method_selected = 'card'">Pay by card</a>-->
-  <a class="button button-small" ng-class="{'button-light': payment_method_selected == 'cash'}" ng-click="payment_method_selected = 'cash'">Cash on delivery</a>
-  <a class="button button-small" ng-class="{'button-light': payment_method_selected == 'online'}" ng-click="payment_method_selected = 'online'">Pay Online</a>
-</div>
+
 
 
 <!--cash on delivery-->
 
-<div class="padding" ng-if="payment_method_selected == 'cash'">
-  <h5 class="">You have selected to pay<br></h5>
+<div class="padding" ng-if="payment_method_selected == 'cod'">
+	<img src='img/icons/cod.png' height="100">
   <h2>Cash on delivery</h2>
+  <h5 class="">You have Chosen to pay through cash on delivery, extra Rs50 would be charged for the same<br></h5>
+
+  <h4>Total Amount : {{amount}}</h4>
   <div class="footer-button">
       <button class="button button-dark button-block button-round button-outline " ng-click="payCashOnDelivery()">Confirm Order</button>
     </div>
@@ -34,8 +33,10 @@
 
 <!--Payment via Instamojo (online)-->
 <div class="padding" ng-if="payment_method_selected == 'online'">
+	<img src='img/icons/cc.png' height="100">
   <h5 class="">Payment Via Instamojo<br></h5>
   <h2>Debit Card/ Credit Card/ Net Banking</h2>
+ <h4>Total Amount : {{amount}}</h4>
   <div class="footer-button">
       <button class="button button-dark button-block button-round button-outline " ng-click="payOnline()">Confirm Order</button>
     </div>

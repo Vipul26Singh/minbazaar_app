@@ -86,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('app.payment_step1', {
-    url: '/payment_step1',
+    url: '/payment_step1/:method',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step1.html',
@@ -96,7 +96,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   .state('app.payment_step2', {
-    url: '/payment_step2/:orderId/:amount/:currency/:name/:phone',
+    url: '/payment_step2/:orderId/:amount/:currency/:name/:phone/:method',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step2.html',
@@ -105,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('app.payment_step3', {
-    url: '/payment_step3/:orderId/:transactionId/:payByCash/:amount',
+    url: '/payment_step3/:orderId/:transactionId/:payByCash/:amount/:status',
     views: {
       'menuContent': {
         templateUrl: 'templates/payment_step3.html',
